@@ -25,25 +25,35 @@ public class PlayerController : MonoBehaviour
         {
             jump();
         }
-        vectorText.text = climbing.ToString();
+        vectorText.text = player.gravityScale.ToString();
 
         if (player.velocity.y == 0 && !grounded)
         {
             setGrounded(true);
         }
-
-        if (climbing)
-        {
-            player.transform.Translate(new Vector3(0, (moveVertical > 0)? 1 : -1, 0) * Time.deltaTime);
-        }
-
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Ladder"))
         {
+            player.velocity = new Vector2(0, 0);
             setClimbingBools(true);
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (climbing)
+        {
+            if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space))
+            {
+                player.transform.Translate(new Vector2(0, 1 * Time.deltaTime * speed));
+            }
+            else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
+            {
+                player.transform.Translate(new Vector2(0, -1 * Time.deltaTime * speed));
+            }
         }
     }
 
@@ -76,6 +86,6 @@ public class PlayerController : MonoBehaviour
     void setClimbingBools(bool val)
     {
         climbing = val;
-        player.gravityScale = (val) ? 1 : 0;
+        player.gravityScale = (val) ? 0 : 1;
     }
 }
