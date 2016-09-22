@@ -7,7 +7,6 @@ public class EnemyController : MonoBehaviour {
 
     public int stepsLeft, stepsRight;
 
-    public Text vectorText;
     public string direction;
     private int stepsTaken;
     private Vector3 moveLeft, moveRight;
@@ -21,7 +20,6 @@ public class EnemyController : MonoBehaviour {
     
     void Update()
     {
-        vectorText.text = direction + " " + stepsTaken;
         ++stepsTaken;
         if (direction.Equals("left"))
         {
@@ -38,6 +36,11 @@ public class EnemyController : MonoBehaviour {
             {
                 updateStepsTaken("left");
             }
+        }
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit();
         }
     }
 	
