@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D player;
     public float speed;
-    public Text vectorText;
     private bool grounded = true, climbing = false;
     public int jumpHeight;
 
@@ -25,7 +24,6 @@ public class PlayerController : MonoBehaviour
         {
             jump();
         }
-        vectorText.text = player.gravityScale.ToString();
 
         if (player.velocity.y == 0 && !grounded)
         {
@@ -48,11 +46,11 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space))
             {
-                player.transform.Translate(new Vector2(0, 1 * Time.deltaTime * speed));
+                player.transform.Translate(new Vector2(0, 1) * Time.deltaTime * speed);
             }
             else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
             {
-                player.transform.Translate(new Vector2(0, -1 * Time.deltaTime * speed));
+                player.transform.Translate(new Vector2(0, -1) * Time.deltaTime * speed);
             }
         }
     }
